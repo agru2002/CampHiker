@@ -2,9 +2,10 @@ const express=require('express')
 const app=express();
 const mongoose=require('mongoose');
 const ejs= require('ejs');
+const ejsMate=require('ejs-mate');
 const path =require('path');
 const Campground=require('./models/campground');
-const methodOverride=require('method-override')
+const methodOverride=require('method-override');
 
 
 mongoose.connect('mongodb://127.0.0.1:27017/Yelp-Camp',
@@ -19,7 +20,10 @@ mongoose.connect('mongodb://127.0.0.1:27017/Yelp-Camp',
 // parsing request for req.body
 app.use(express.urlencoded({extended:true}))
 app.use(methodOverride("_method"))
+
+
 // setting template engine
+app.engine('ejs', ejsMate)
 app.set('view engine', 'ejs' );
 app.set('views', path.join(__dirname, 'views'))
 

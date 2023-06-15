@@ -1,18 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Campground Details</title>
-<body>
-    <h1>New Campground</h1>
-    <hr>
-    <h2><%= campground.title %></h2>
-    <h3><%= campground.location %></h3>
-    <p><a href="/campgrounds">All Campground</a></p>
-    <form method="post" action="/campgrounds/<%= campground._id %>?_method=DELETE">
-        <button>DELTE</button>
-    </form>
-    <p><a href="/campgrounds/<%= campground._id %>/edit">Edit Campground</a></p>
-</body>
-</html>
+<!-- layout looking for template and pass all content as body to boilerplate -->
+<% layout('layouts/boilerplate') %>
+<div class="row">
+  <div class="col-md-6 offset-3">
+    <h1>Campground Details</h1>
+    <hr />
+    <div class="card mb-4">
+      <img src="<%=campground.image %>" class="card-img-top" alt="" />
+      <div class="card-body">
+        <h5 class="card-title"><%= campground.title %></h5>
+        <p class="card-text"><%= campground.description %></p>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item text-muted"><%= campground.location %></li>
+        <li class="list-group-item">$<%= campground.price %>/night</li>
+      </ul>
+      <div class="card-body">
+        <a
+          href="/campgrounds/<%= campground._id %>/edit"
+          class="card-link btn btn-info"
+          >Edit</a
+        >
+        <form
+          class="card-link d-inline"
+          method="post"
+          action="/campgrounds/<%= campground._id %>?_method=DELETE"
+        >
+          <button class="btn btn-danger">DELTE</button>
+        </form>
+      </div>
+      <div class="card-footer card-body"><a href="/campgrounds" class="text-muted ">All Campgrounds</a></div>
+    </div>
+  </div>
+</div>
