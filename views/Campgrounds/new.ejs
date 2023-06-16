@@ -3,7 +3,7 @@
   <!-- offset is used to make form at center by taking 3 part from each side of row -->
   <div class="col-6 offset-3">
     <h1 class="text-center">New Campground</h1>
-    <form method="post" action="/campgrounds">
+    <form method="post" action="/campgrounds"  class="validated-form"  novalidate>   <!--boolean attribute -->
       <div class="mb-3">
         <label for="title" class="form-label">Title : </label>
         <input
@@ -11,7 +11,14 @@
           class="form-control"
           name="campground[title]"
           id="title"
+          required
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill Camp Name
+        </div>
       </div>
       <div class="mb-3">
         <label for="location" class="form-label">Location : </label>
@@ -20,16 +27,30 @@
           name="campground[location]"
           id="location"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill up location
+        </div>
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Image URL : </label>
         <input
-          type="text"
+          type="url"
           name="campground[image]"
           id="image"
           class="form-control"
+          required
         />
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill up image URL
+        </div>
       </div>
       <div class="mb-3">
         <label for="price" class="form-label">Amount : </label>
@@ -43,7 +64,14 @@
             placeholder="0.00"
             aria-label="Price"
             aria-describedby="amount"
+            required
           />
+          <div class="valid-feedback">
+            Looks good!
+          </div>
+          <div class="invalid-feedback">
+            Please fill up Amount
+          </div>
         </div>
       </div>
       <div class="mb-3">
@@ -54,11 +82,17 @@
           id="description"
           class="form-control"
           row="30" col="10"
+          required
         ></textarea>
+        <div class="valid-feedback">
+          Looks good!
+        </div>
+        <div class="invalid-feedback">
+          Please fill up Description of Camp
+        </div>
       </div>
       <button class="btn btn-success">Add Campground</button>
     </form>
     <a href="/campgrounds">All Campground</a>
   </div>
 </div>
-
