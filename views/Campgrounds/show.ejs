@@ -1,7 +1,8 @@
 <!-- layout looking for template and pass all content as body to boilerplate -->
 <% layout('layouts/boilerplate') %>
 <div class="row">
-  <div class="col-md-6 offset-3">
+  <div class="col-md-6">
+    <!--offset use to center page-->
     <h1>Campground Details</h1>
     <hr />
     <div class="card mb-4">
@@ -28,7 +29,57 @@
           <button class="btn btn-danger">DELTE</button>
         </form>
       </div>
-      <div class="card-footer card-body"><a href="/campgrounds" class="text-muted ">All Campgrounds</a></div>
+      <div class="card-footer card-body">
+        <a href="/campgrounds" class="text-muted">All Campgrounds</a>
+      </div>
     </div>
+  </div>
+  <div class="col-6">
+    <div>
+      <h1>Leave a Review</h1>
+      <form
+        method="POST"
+        action="/campgrounds/<%= campground._id%>/reviews"
+        novalidate
+        class="mb-3 validated-form"
+      >
+        <div>
+          <label class="form-label" for="rating">Rating</label>
+          <input
+            class="form-range"
+            type="range"
+            id="rating"
+            name="Review[rating]"
+            min="1"
+            max="5"
+          />
+        </div>
+        <div class="mb-3">
+          <label class="form-label" for="body">Review</label>
+          <textarea
+            class="form-control"
+            name="Review[body]"
+            id="body"
+            cols="30"
+            rows="3"
+            required
+          ></textarea>
+        </div>
+        <button class="btn btn-primary">Submit</button>
+      </form>
+    </div>
+    <% for(let review of campground.reviews) {%>
+    <div class="card mb-3">
+      <div class="card-body">
+        <h5 class="card-title">Rating:<%=review.rating %></h5>
+        <p class="card-text">Review:<%=review.body %></p>
+
+        <!-- this form trigger to delete single review of specific campground -->
+        <form method="post" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE">
+              <button class="btn btn-sm btn-danger">Delete</button>
+        </form>
+      </div>
+    </div>
+    <% } %>
   </div>
 </div>
