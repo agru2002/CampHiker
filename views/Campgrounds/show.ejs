@@ -1,5 +1,10 @@
 <!-- layout looking for template and pass all content as body to boilerplate -->
 <% layout('layouts/boilerplate') %>
+
+<!-- We dont have to go inside public static directory bcoz it is convention file -->
+<link rel="stylesheet" href="/Stylesheets/Stars.css"> 
+
+
 <div class="row">
   <div class="col-md-6">
     <!--offset use to center page-->
@@ -14,7 +19,9 @@
       <ul class="list-group list-group-flush">
         <li class="list-group-item text-muted"><%= campground.location %></li>
         <li class="list-group-item">$<%= campground.price %>/night</li>
+        <li class="list-group-item">Authorised by <%=author.username %></li>
       </ul>
+      <% if(currentUser && author.equals(currentUser._id)){  %>  <!--if logged in user id is equal to  authorized user id- use for showing and hiding th eedit and delete btn-->
       <div class="card-body">
         <a
           href="/campgrounds/<%= campground._id %>/edit"
@@ -29,12 +36,29 @@
           <button class="btn btn-danger">DELTE</button>
         </form>
       </div>
+    <% }else{ %>
+      <div class="card-body">
+        <button class="btn btn-info" disabled>Edit</a
+        ></button>
+        <form
+          class="card-link d-inline"
+          method="post"
+          action="/campgrounds/<%= campground._id %>?_method=DELETE"
+        >
+          <button class="btn btn-danger" disabled>DELTE</button>
+        </form>
+      </div>
+      <% } %>
+
       <div class="card-footer card-body">
         <a href="/campgrounds" class="text-muted">All Campgrounds</a>
       </div>
     </div>
   </div>
+
+  <!-- REVIEW SECTION -->
   <div class="col-6">
+    <% if(currentUser){ %>
     <div>
       <h1>Leave a Review</h1>
       <form
@@ -45,15 +69,30 @@
       >
         <div>
           <label class="form-label" for="rating">Rating</label>
-          <input
+          <!-- <input
             class="form-range"
             type="range"
             id="rating"
             name="Review[rating]"
             min="1"
             max="5"
-          />
-        </div>
+          /> -->
+          <!-- problem is that we have to add some js as we cannot leave star 0  -->
+        <fieldset id="rating" class="starability-grow"> <!--Radio button are styled to form stars using class starability-grow  -->
+          <!-- <legend>First rating:</legend> -->
+          <input type="radio" id="no-rate" class="input-no-rate" name="Review[rating]" value="1" checked aria-label="No rating." />
+          <input type="radio" id="first-rate1" name="Review[rating]" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="Review[rating]" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="Review[rating]" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="Review[rating]" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="Review[rating]" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
         <div class="mb-3">
           <label class="form-label" for="body">Review</label>
           <textarea
@@ -68,16 +107,22 @@
         <button class="btn btn-primary">Submit</button>
       </form>
     </div>
+    <% } %>
     <% for(let review of campground.reviews) {%>
     <div class="card mb-3">
       <div class="card-body">
-        <h5 class="card-title">Rating:<%=review.rating %></h5>
+        <!-- <h5 class="card-title">Rating:<%=review.rating %></h5> -->
+        <h6 class="card-subtitle mb-2 text-body-secondary">- <%= review.reviewAuthor.username %></h6>
+        <p class="starability-result" data-rating="<%= review.rating  %>">
+          Rated: <%= review.rating %>
+        </p>
         <p class="card-text">Review:<%=review.body %></p>
-
+        <% if(currentUser && review.reviewAuthor.equals(currentUser._id)){ %>
         <!-- this form trigger to delete single review of specific campground -->
         <form method="post" action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE">
               <button class="btn btn-sm btn-danger">Delete</button>
         </form>
+        <% } %>
       </div>
     </div>
     <% } %>

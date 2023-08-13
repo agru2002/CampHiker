@@ -1,0 +1,17 @@
+<!-- for success -->
+<% if(success && success.length){ %>  <!-- because success is array- if success has length and array exist -->
+    <!-- role - screen readers -->
+    <div class="alert alert-success alert-dismissible fade show" role="alert"> 
+        <%= success %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+<% } %>
+
+<!-- for error -->
+<% if(error && error.length){ %>  <!-- because success is array- if success has length -->
+    <!-- role - screen readers -->
+    <div class="alert alert-danger alert-dismissible fade show" role="alert"> 
+        <%= error %>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+<% } %>

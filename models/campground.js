@@ -9,6 +9,11 @@ const campgroundSchema=new Schema({
     location:String,
     image : String,
     description:String,
+    // one to one relationship therfore do not use array like review
+    author:{
+        type:Schema.Types.ObjectId,
+        ref:'User'
+    },
     reviews:[{
         type:Schema.Types.ObjectId,
         ref:'Review'

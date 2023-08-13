@@ -10,10 +10,14 @@
       crossorigin="anonymous"
     />
     <title>Boilerplate</title>
-  </head>
+  </head> 
   <body class="d-flex flex-column vh-100">
     <%- include('../Partials/navbar.ejs') %>
-    <main class="container mt-5"><%- body %></main>
+    <main class="container mt-5">
+      <!-- this line will use to flash messg in all template -->
+      <%- include('../Partials/flash.ejs') %> 
+      <%- body %>
+    </main>
     <%- include('../Partials/footer.ejs') %>
     <script
       src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
@@ -25,26 +29,8 @@
       integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS"
       crossorigin="anonymous"
     ></script>
-    <script>
-      (() => {
-        'use strict'
-      
-        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.validated-form')
-        // console.log(forms)
-      
-        // Loop over them and prevent submission
-        Array.from(forms).forEach(form => {
-          form.addEventListener('submit', event => {
-            if (!form.checkValidity()) {
-              event.preventDefault()
-              event.stopPropagation()
-            }
-      
-            form.classList.add('was-validated')
-          }, false)
-        })
-      })()
-      </script>
+
+    <!-- Serving Static Files -->
+    <script src="/javascripts/validateForms.js"> </script>
   </body>
 </html>
