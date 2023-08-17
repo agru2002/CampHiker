@@ -3,6 +3,7 @@
     // joi schema is not mongoose schema
 
 const joi=require('joi');
+const { deleteCampground } = require('./Controller/Campgrounds');
 
 // Validation Schema for Campground
 // We are using two joi object as we have a campground as an array inside it we keys ie campground[title, price]-parse to object in reqbody
@@ -13,8 +14,10 @@ module.exports.campgroundSchema=joi.object({
         price:joi.number().required().min(0),
         description:joi.string().required(),
         location:joi.string().required(),
-        image:joi.string().required()
-    }).required()
+        // image:joi.string().required()
+    }).required(),
+    //to delete uploded image we have validate it as req.body is validated
+    deleteImages:joi.array()
 })
 
 // Validation for Review

@@ -4,14 +4,32 @@
 <!-- We dont have to go inside public static directory bcoz it is convention file -->
 <link rel="stylesheet" href="/Stylesheets/Stars.css"> 
 
-
 <div class="row">
   <div class="col-md-6">
     <!--offset use to center page-->
     <h1>Campground Details</h1>
-    <hr />
+    <hr>
     <div class="card mb-4">
-      <img src="<%=campground.image %>" class="card-img-top" alt="" />
+      <div id="map" style="height: 300px; width: 400px;"></div>
+      <div id="carouselExample" class="carousel slide">
+        <div class="carousel-inner">
+          <% campground.images.forEach((imgObj,i)=>{ %>
+          <div class="carousel-item <%= i==0 ? 'active' : '' %> ">
+            <img src="<%= imgObj.url %>" class="d-block w-100" alt="image">
+          </div>
+          <% }) %>
+        </div>
+        <% if(campground.images.length > 1){ %>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      <% } %>
+      </div>
       <div class="card-body">
         <h5 class="card-title"><%= campground.title %></h5>
         <p class="card-text"><%= campground.description %></p>
@@ -128,3 +146,13 @@
     <% } %>
   </div>
 </div>
+
+<!-- we use ejs to create javascript  -->
+<!--we are just handing data form server side to client side -->
+<script>
+  const mapBoxToken= "<%-process.env.MAPBOX_TOKEN%>"; //asscoiate with account
+  const campground= <%-JSON.stringify(campground) %>  //not put inverted "" inwhole  //converting to json bcoz in object id is not in inverted comma so it do not act as an js object
+</script>
+
+// as this script will be add here therfore we can access mapBoxToken in this script
+<script src="/javascripts/showMapPage.js"></script>

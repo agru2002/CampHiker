@@ -3,7 +3,7 @@
   <!-- offset is used to make form at center by taking 3 part from each side of row -->
   <div class="col-6 offset-3">
     <h1 class="text-center">New Campground</h1>
-    <form method="post" action="/campgrounds"  class="validated-form"  novalidate>   <!--boolean attribute -->
+    <form method="post" action="/campgrounds"  class="validated-form"  novalidate enctype="multipart/form-data" >   <!--boolean attribute -->
       <div class="mb-3">
         <label for="title" class="form-label">Title : </label>
         <input
@@ -38,12 +38,14 @@
       </div>
       <div class="mb-3">
         <label for="image" class="form-label">Image URL : </label>
+        <!--the name attribute in image part has value image not campround[image] as using multer it will not go in req.body it will go in req.files-->
         <input
-          type="url"
-          name="campground[image]"
+          type="file"
+          name="image"  
           id="image"
           class="form-control"
           required
+          multiple
         />
         <div class="valid-feedback">
           Looks good!

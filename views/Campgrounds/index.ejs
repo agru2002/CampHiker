@@ -1,5 +1,7 @@
 <!-- iniline element need to be block for padding and margin to be applied -->
 <% layout('layouts/boilerplate') %>
+
+<div id="map" style="width: 100%; height: 400px;"></div>
 <h1>All Campgrounds</h1>
 <a href="/campgrounds/new">Add Campground</a>
 <ul>
@@ -7,7 +9,7 @@
   <div class="card mb-3">
     <div class="row">
       <div class="col-md-4">
-        <img src="<%= campground.image %>" class="card-img-top" alt="..." />
+        <img src="<%= campground.images[0].url %>" class="card-img-top" alt="" />
       </div>
       <div class="col-md-8">
         <div class="card-body">
@@ -22,3 +24,12 @@
   </div>
   <% } %>
 </ul>
+
+<!-- Mongoose cannot convert virtual to JSON -->
+<script>
+  const mapBoxToken= "<%-process.env.MAPBOX_TOKEN%>"; //asscoiate with account
+ const data={features:<%-JSON.stringify(campgrounds)%>}//not put inverted "" inwhole  //converting to json bcoz in object id is not in inverted comma so it do not act as an js object
+</script>
+
+<!-- ejs didn't run(load) the javascript or css in ejs file, the browser require or request the script and then load,  -->
+<script src="/javascripts/clusterMap.js"></script>
