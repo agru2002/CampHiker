@@ -32,6 +32,8 @@ const cacheAsync = require("./Utils/cacheAsync"); //function to catch async erro
 const ExpressError = require("./Utils/ExpressError"); //class for error
 const sanitize = require("sanitize-html");
 
+console.log({ accessToken: process.env.MAPBOX_TOKEN });
+
 const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/Yelp-Camp"; //url for connecting with cloud database
 mongoose
   .connect(dbUrl, {
