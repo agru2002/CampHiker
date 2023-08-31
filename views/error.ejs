@@ -5,7 +5,10 @@
   <div class="col-md-6 offset-3">
     <div class="alert alert-danger" role="alert">
       <h4 class="alert-heading"><%= err.message %></h4>
-     <p><%= err.stack %></p>
+      <!-- we don;t want the user to see the error stack in production mode  (its for development purpose) -->
+      <% if(process.env.NODE_ENV!=="production"){ %> 
+      <p><%= err.stack %></p>
+      <% } %>
     </div>
   </div>
 </div>

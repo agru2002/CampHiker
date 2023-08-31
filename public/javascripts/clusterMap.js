@@ -4,7 +4,7 @@
 
            mapboxgl.accessToken = mapBoxToken;
            const map = new mapboxgl.Map({
-           container: 'map',
+           container: 'cluster-map',
                         // Choose from Mapbox's core styles, or make your own style with Mapbox Studio
            style: 'mapbox://styles/mapbox/light-v11',
            center: [-103.5917, 40.6699],
@@ -24,6 +24,9 @@
            clusterMaxZoom: 14, // Max zoom to cluster points on
            clusterRadius: 50 // Radius of each cluster when clustering points (defaults to 50)
            });
+
+           const nav = new mapboxgl.NavigationControl();
+          map.addControl(nav, 'top-right');
             
                      //used for making circle shape
            map.addLayer({

@@ -10,7 +10,6 @@
     <h1>Campground Details</h1>
     <hr>
     <div class="card mb-4">
-      <div id="map" style="height: 300px; width: 400px;"></div>
       <div id="carouselExample" class="carousel slide">
         <div class="carousel-inner">
           <% campground.images.forEach((imgObj,i)=>{ %>
@@ -76,6 +75,7 @@
 
   <!-- REVIEW SECTION -->
   <div class="col-6">
+    <div id="map"></div>
     <% if(currentUser){ %>
     <div>
       <h1>Leave a Review</h1>
@@ -154,5 +154,5 @@
   const campground= <%-JSON.stringify(campground) %>  //not put inverted "" inwhole  //converting to json bcoz in object id is not in inverted comma so it do not act as an js object
 </script>
 
-// as this script will be add here therfore we can access mapBoxToken in this script
+<!-- // as this script will be add here therfore we can access mapBoxToken in this script -->
 <script src="/javascripts/showMapPage.js"></script>

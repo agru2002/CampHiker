@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <div class="row">
   <!-- offset is used to make form at center by taking 3 part from each side of row -->
-  <div class="col-6 offset-3">
+  <div class="col-md-6 offset-md-3">
     <h1 class="text-center">New Campground</h1>
     <form method="post" action="/campgrounds"  class="validated-form"  novalidate enctype="multipart/form-data" >   <!--boolean attribute -->
       <div class="mb-3">
@@ -12,6 +12,7 @@
           name="campground[title]"
           id="title"
           required
+          autofocus
         />
         <div class="valid-feedback">
           Looks good!
