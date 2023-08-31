@@ -151,6 +151,8 @@ app.use(
   })
 );
 
+
+
 // flashing messages in all templates comes from mongoose
 // now we access of success in all templates
 // (success -variable, req.flash('success')-value to that variable)
