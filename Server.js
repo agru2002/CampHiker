@@ -36,7 +36,7 @@ console.log({ accessToken: process.env.MAPBOX_TOKEN });
 
 const dbUrl = process.env.DB_URL || "mongodb://127.0.0.1:27017/Yelp-Camp"; //url for connecting with cloud database
 mongoose
-  .connect(dbUrl, {
+  .connect("mongodb://127.0.0.1:27017/Yelp-Camp", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -150,8 +150,6 @@ app.use(
     },
   })
 );
-
-
 
 // flashing messages in all templates comes from mongoose
 // now we access of success in all templates

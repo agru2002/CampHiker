@@ -65,7 +65,7 @@ module.exports.renderEditForm = async (req, res) => {
   // We need id to prepopulat the form by finding that campground
   const { id } = req.params;
   const campground = await Campground.findById(id);
-  console.log(campground.images);
+  // console.log(campground.images);
   if (!campground) {
     req.flash("error", "Campground not found");
     return res.redirect("/campgrounds");
@@ -81,25 +81,29 @@ module.exports.editCampground = async (req, res) => {
   //     req.flash('error', 'Update can done by author of campground')
   //     return res.redirect(`/campgrounds/${id}`)
   // }
-  const { campgroundUpdated } = req.body;
-  console.log(req.body);
-  // console.log({...campgroundUpdated})
-  const campground = await Campground.findByIdAndUpdate(id, campgroundUpdated);
+  const { campground } = req.body;
+  // console.log(req.body);
+  // console.log(campground);
+  const camp = await Campground.findByIdAndUpdate(id, campground);
+  // console.log(camp);
   const imageObject = req.files.map((obj) => {
     return { url: obj.path, filename: obj.filename };
   });
-  campground.images.push(...imageObject);
+  camp.images.push(...imageObject);
   if (req.body.deleteImages) {
     for (let filename of req.body.deleteImages) {
+      console.log(req.body.deleteImages);
       await cloudinary.uploader.destroy(filename); //this will delete the file form cloudinary
+      //this remove campground image from mongo server //pull or remove images having filename is in req.body.deleteCampground array
     }
-    campground.updateOne({
+    camp.updateOne({
       $pull: { images: { filename: { $in: req.body.deleteImages } } },
-    }); //this remove campground image from mongo server //pull or remove images having filename is in req.body.deleteCampground array
+    });
   }
-  await campground.save();
+  console.log(camp);
+  await camp.save();
   req.flash("success", "Successfuly Updated Campground");
-  res.redirect(`/campgrounds/${campground._id}`);
+  res.redirect(`/campgrounds/${camp._id}`);
 };
 
 module.exports.deleteCampground = async (req, res) => {
