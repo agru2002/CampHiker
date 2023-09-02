@@ -96,11 +96,10 @@ module.exports.editCampground = async (req, res) => {
       await cloudinary.uploader.destroy(filename); //this will delete the file form cloudinary
       //this remove campground image from mongo server //pull or remove images having filename is in req.body.deleteCampground array
     }
-    camp.updateOne({
+    await camp.updateOne({
       $pull: { images: { filename: { $in: req.body.deleteImages } } },
     });
   }
-  console.log(camp);
   await camp.save();
   req.flash("success", "Successfuly Updated Campground");
   res.redirect(`/campgrounds/${camp._id}`);
